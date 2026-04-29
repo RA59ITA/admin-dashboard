@@ -1,8 +1,7 @@
 /* layout.css */
 .admin-layout {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   background-color: var(--bg-main);
 }
 
@@ -14,9 +13,6 @@
   flex-direction: column;
   padding: 24px 0;
   border-right: 1px solid var(--border-light);
-  border-top: none;
-  border-left: none;
-  border-bottom: none;
   border-radius: 0;
 }
 
@@ -57,6 +53,7 @@
   transition: all 0.2s ease;
   font-weight: 500;
   font-size: 15px;
+  text-decoration: none;
 }
 
 .nav-link:hover {
@@ -73,21 +70,18 @@
 /* Header Styles */
 .main-content {
   flex-grow: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .top-header {
-  height: 72px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
   border-bottom: 1px solid var(--border-light);
-  border-top: none;
-  border-left: none;
-  border-right: none;
   border-radius: 0;
   z-index: 10;
 }
@@ -137,7 +131,8 @@
   color: var(--text-muted);
 }
 
-.icon-button, .profile-button {
+.icon-button,
+.profile-button {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-light);
   width: 40px;
@@ -149,9 +144,11 @@
   color: var(--text-secondary);
   transition: all 0.2s;
   position: relative;
+  flex-shrink: 0;
 }
 
-.icon-button:hover, .profile-button:hover {
+.icon-button:hover,
+.profile-button:hover {
   background: rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
 }
@@ -171,5 +168,62 @@
 .page-content {
   flex-grow: 1;
   padding: 32px;
-  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 14px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .sidebar-header {
+    padding: 0 16px 12px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    gap: 8px;
+    padding: 0 12px 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .top-header {
+    min-height: auto;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .header-title h1 {
+    font-size: 18px;
+  }
+
+  .search-bar {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 10px;
+  }
+
+  .page-content {
+    padding: 16px;
+  }
 }
