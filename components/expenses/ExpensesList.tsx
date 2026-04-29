@@ -27,6 +27,13 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
     new Date().toISOString().split("T")[0]
   );
 
+  const formatCurrency = (amount: number) => {
+    return `LKR ${amount.toLocaleString("en-LK", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  };
+
   const { dailyTotal, monthlyTotal } = useMemo(() => {
     let daily = 0;
     let monthly = 0;
@@ -67,7 +74,6 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
 
   return (
     <div className="expenses-page">
-      {/* Metric Cards */}
       <div className="expenses-metrics">
         <Card style={{ padding: "24px", borderLeft: "4px solid #f87171" }}>
           <div className="expense-metric-header">
@@ -76,7 +82,7 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
           </div>
 
           <div className="expense-metric-value" style={{ color: "#f87171" }}>
-            ${dailyTotal.toFixed(2)}
+            {formatCurrency(dailyTotal)}
           </div>
         </Card>
 
@@ -99,12 +105,11 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
             className="expense-metric-value"
             style={{ color: "var(--accent-base)" }}
           >
-            ${monthlyTotal.toFixed(2)}
+            {formatCurrency(monthlyTotal)}
           </div>
         </Card>
       </div>
 
-      {/* Header */}
       <div className="expenses-list-header">
         <h3>All Expenses</h3>
 
@@ -120,7 +125,6 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
         </Button>
       </div>
 
-      {/* Form */}
       {showForm && (
         <Card
           style={{
@@ -151,7 +155,7 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
 
             <Input
               name="amount"
-              label="Amount ($)"
+              label="Amount (LKR)"
               type="number"
               step="0.01"
               value={amount}
@@ -183,9 +187,7 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
         </Card>
       )}
 
-      {/* Expenses List */}
       <Card>
-        {/* Desktop Table */}
         <div className="desktop-table">
           <Table>
             <TableHeader>
@@ -238,7 +240,7 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
                           color: "#f87171",
                         }}
                       >
-                        ${expense.amount.toFixed(2)}
+                        {formatCurrency(expense.amount)}
                       </div>
                     </TableCell>
 
@@ -259,7 +261,6 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
           </Table>
         </div>
 
-        {/* Mobile Cards */}
         <div className="mobile-cards">
           {expenses.length === 0 ? (
             <div className="expense-empty">No expenses recorded yet.</div>
@@ -272,7 +273,7 @@ export default function ExpensesList({ expenses }: { expenses: any[] }) {
                   </span>
 
                   <span className="expense-amount">
-                    ${expense.amount.toFixed(2)}
+                    {formatCurrency(expense.amount)}
                   </span>
                 </div>
 
