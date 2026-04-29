@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,7 +28,7 @@ model Reseller {
 model Order {
   id                 Int      @id @default(autoincrement())
   customerId         Int
-  resellerId         Int?     
+  resellerId         Int?
   subscriptionType   String
   months             Int
   startDate          DateTime
